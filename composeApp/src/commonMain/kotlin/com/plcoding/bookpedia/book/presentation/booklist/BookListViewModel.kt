@@ -100,12 +100,8 @@ class BookListViewModel(
 
     fun onTriggerEvent(event: BookListEvent) {
         when (event) {
-            is BookListEvent.OnBookClick -> TODO()
             is BookListEvent.OnSearchQueryChange -> updateSearchQuery(event.query)
             is BookListEvent.OnTabSelected -> updateTab(event.index)
-//            is BookListAction.OnBookClick -> {
-//
-//            }
         }
     }
 

@@ -37,6 +37,7 @@ import cmp_bookpedia.composeapp.generated.resources.favorites
 import cmp_bookpedia.composeapp.generated.resources.no_favorite_books
 import cmp_bookpedia.composeapp.generated.resources.no_search_results
 import cmp_bookpedia.composeapp.generated.resources.search_results
+import com.plcoding.bookpedia.book.domain.models.Book
 import com.plcoding.bookpedia.book.presentation.booklist.composables.BookList
 import com.plcoding.bookpedia.book.presentation.booklist.composables.BookSearchBar
 import com.plcoding.bookpedia.core.presentation.DarkBlue
@@ -47,19 +48,22 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun BookListScreen(
-    viewModel: BookListViewModel = koinViewModel()
+    viewModel: BookListViewModel = koinViewModel(),
+    navigateToBookDetail: (Book) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     BookListContent(
         state = state,
-        event = viewModel::onTriggerEvent
+        event = viewModel::onTriggerEvent,
+        navigateToBookDetail = navigateToBookDetail
     )
 }
 
 @Composable
 private fun BookListContent(
     state: BookListState,
-    event: (BookListEvent) -> Unit
+    event: (BookListEvent) -> Unit,
+    navigateToBookDetail: (Book) -> Unit,
 ) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -196,9 +200,7 @@ private fun BookListContent(
                                         else -> {
                                             BookList(
                                                 books = state.searchResults,
-                                                onBookClick = {
-                                                    event(BookListEvent.OnBookClick(it))
-                                                },
+                                                onBookClick = navigateToBookDetail,
                                                 modifier = Modifier.fillMaxSize(),
                                                 scrollState = searchResultsListState
                                             )
@@ -216,9 +218,7 @@ private fun BookListContent(
                                 } else {
                                     BookList(
                                         books = state.favoriteBooks,
-                                        onBookClick = {
-                                            event(BookListEvent.OnBookClick(it))
-                                        },
+                                        onBookClick = navigateToBookDetail,
                                         modifier = Modifier.fillMaxSize(),
                                         scrollState = favoriteBooksListState
                                     )

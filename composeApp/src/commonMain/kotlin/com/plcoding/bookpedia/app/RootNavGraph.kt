@@ -2,8 +2,10 @@ package com.plcoding.bookpedia.app
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -12,6 +14,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.plcoding.bookpedia.book.presentation.SelectedBookViewModel
+import com.plcoding.bookpedia.book.presentation.bookdetail.BookDetailEvent
+import com.plcoding.bookpedia.book.presentation.bookdetail.BookDetailScreen
+import com.plcoding.bookpedia.book.presentation.bookdetail.BookDetailViewModel
 import com.plcoding.bookpedia.book.presentation.booklist.BookListScreen
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -43,10 +48,22 @@ fun RootNavGraph(navController: NavHostController){
             }
 
             composable<Route.BookDetail> { entry ->
-                val selectedBookViewModel = entry.sharedKoinViewModel<SelectedBookViewModel>(navController)
 
                 //val args = entry.toRoute<Route.BookDetail>()
 
+                val selectedBookViewModel = entry.sharedKoinViewModel<SelectedBookViewModel>(navController)
+                val selectedBook by selectedBookViewModel.selectedBook.collectAsStateWithLifecycle()
+                val viewModel = koinViewModel<BookDetailViewModel>()
+
+                LaunchedEffect(selectedBook){
+                    selectedBook?.let {
+                        viewModel.onTriggerEvent(BookDetailEvent.OnSelectedBookChange(it))
+                    }
+                }
+
+                BookDetailScreen(
+                    onBackClick = { navController.navigateUp() }
+                )
             }
         }
     }

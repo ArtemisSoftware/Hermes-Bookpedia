@@ -122,82 +122,82 @@ fun BlurredImageBackground(
             )
         }
 
-//        Column(
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            modifier = Modifier.fillMaxWidth()
-//        ) {
-//            Spacer(modifier = Modifier.fillMaxHeight(0.15f))
-//            ElevatedCard(
-//                modifier = Modifier
-//                    .height(230.dp)
-//                    .aspectRatio(2 / 3f),
-//                shape = RoundedCornerShape(8.dp),
-//                elevation = CardDefaults.elevatedCardElevation(
-//                    defaultElevation = 15.dp
-//                )
-//            ) {
-//                AnimatedContent(
-//                    targetState = imageLoadResult
-//                ) { result ->
-//                    when(result) {
-//                        null -> Box(
-//                            modifier = Modifier.fillMaxSize(),
-//                            contentAlignment = Alignment.Center
-//                        ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Spacer(modifier = Modifier.fillMaxHeight(0.15f))
+            ElevatedCard(
+                modifier = Modifier
+                    .height(230.dp)
+                    .aspectRatio(2 / 3f),
+                shape = RoundedCornerShape(8.dp),
+                elevation = CardDefaults.elevatedCardElevation(
+                    defaultElevation = 15.dp
+                )
+            ) {
+                AnimatedContent(
+                    targetState = imageLoadResult
+                ) { result ->
+                    when(result) {
+                        null -> Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
 //                            PulseAnimation(
 //                                modifier = Modifier
 //                                    .size(60.dp)
 //                            )
-//                        }
-//                        else -> {
-//                            Box {
-//                                Image(
-//                                    painter = if(result.isSuccess) painter else {
-//                                        painterResource(Res.drawable.book_error_2)
-//                                    },
-//                                    contentDescription = stringResource(Res.string.book_cover),
-//                                    modifier = Modifier
-//                                        .fillMaxSize()
-//                                        .background(Color.Transparent),
-//                                    contentScale = if(result.isSuccess) {
-//                                        ContentScale.Crop
-//                                    } else {
-//                                        ContentScale.Fit
-//                                    }
-//                                )
-//                                IconButton(
-//                                    onClick = onFavoriteClick,
-//                                    modifier = Modifier
-//                                        .align(Alignment.BottomEnd)
-//                                        .background(
-//                                            brush = Brush.radialGradient(
-//                                                colors = listOf(
-//                                                    SandYellow, Color.Transparent
-//                                                ),
-//                                                radius = 70f
-//                                            )
-//                                        )
-//                                ) {
-//                                    Icon(
-//                                        imageVector = if(isFavorite) {
-//                                            Icons.Filled.Favorite
-//                                        } else {
-//                                            Icons.Outlined.FavoriteBorder
-//                                        },
-//                                        tint = Color.Red,
-//                                        contentDescription = if(isFavorite) {
-//                                            stringResource(Res.string.remove_from_favorites)
-//                                        } else {
-//                                            stringResource(Res.string.mark_as_favorite)
-//                                        }
-//                                    )
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            content()
-//        }
+                        }
+                        else -> {
+                            Box {
+                                Image(
+                                    painter = if(result.isSuccess) painter else {
+                                        painterResource(Res.drawable.book_error_2)
+                                    },
+                                    contentDescription = stringResource(Res.string.book_cover),
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .background(Color.Transparent),
+                                    contentScale = if(result.isSuccess) {
+                                        ContentScale.Crop
+                                    } else {
+                                        ContentScale.Fit
+                                    }
+                                )
+                                IconButton(
+                                    onClick = onFavoriteClick,
+                                    modifier = Modifier
+                                        .align(Alignment.BottomEnd)
+                                        .background(
+                                            brush = Brush.radialGradient(
+                                                colors = listOf(
+                                                    SandYellow, Color.Transparent
+                                                ),
+                                                radius = 70f
+                                            )
+                                        )
+                                ) {
+                                    Icon(
+                                        imageVector = if(isFavorite) {
+                                            Icons.Filled.Favorite
+                                        } else {
+                                            Icons.Outlined.FavoriteBorder
+                                        },
+                                        tint = Color.Red,
+                                        contentDescription = if(isFavorite) {
+                                            stringResource(Res.string.remove_from_favorites)
+                                        } else {
+                                            stringResource(Res.string.mark_as_favorite)
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            content()
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.plcoding.bookpedia.book.data.network
 
+import com.plcoding.bookpedia.book.data.network.dto.BookWorkDto
 import com.plcoding.bookpedia.book.data.network.dto.SearchResponseDto
 import com.plcoding.bookpedia.core.domain.DataError
 import com.plcoding.bookpedia.core.domain.Result
@@ -10,5 +11,5 @@ interface OpenLibraryDataSource {
         resultLimit: Int? = null
     ): Result<SearchResponseDto, DataError.Remote>
 
-//    suspend fun getBookDetails(bookWorkId: String): Result<BookWorkDto, DataError.Remote>
+    suspend fun getBookDetails(bookWorkId: String): Result<BookWorkDto, DataError.Remote>
 }

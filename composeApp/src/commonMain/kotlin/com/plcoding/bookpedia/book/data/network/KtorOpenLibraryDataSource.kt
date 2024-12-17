@@ -1,5 +1,6 @@
 package com.plcoding.bookpedia.book.data.network
 
+import com.plcoding.bookpedia.book.data.network.dto.BookWorkDto
 import com.plcoding.bookpedia.book.data.network.dto.SearchResponseDto
 import com.plcoding.bookpedia.core.data.utils.extensions.safeCall
 import com.plcoding.bookpedia.core.domain.DataError
@@ -28,13 +29,13 @@ class KtorOpenLibraryDataSource(
         }
     }
 
-//    override suspend fun getBookDetails(bookWorkId: String): Result<BookWorkDto, DataError.Remote> {
-//        return safeCall<BookWorkDto> {
-//            httpClient.get(
-//                urlString = "$BASE_URL/works/$bookWorkId.json"
-//            )
-//        }
-//    }
+    override suspend fun getBookDetails(bookWorkId: String): Result<BookWorkDto, DataError.Remote> {
+        return safeCall<BookWorkDto> {
+            httpClient.get(
+                urlString = "$BASE_URL/works/$bookWorkId.json"
+            )
+        }
+    }
 
     private companion object {
         const val BASE_URL = "https://openlibrary.org"

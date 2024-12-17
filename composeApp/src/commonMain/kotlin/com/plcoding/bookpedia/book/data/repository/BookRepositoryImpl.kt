@@ -19,19 +19,20 @@ class BookRepositoryImpl(
                 dto.results.map { it.toBook() }
             }
     }
-//
-//    override suspend fun getBookDescription(bookId: String): Result<String?, DataError> {
+
+    override suspend fun getBookDescription(bookId: String): Result<String?, DataError> {
 //        val localResult = favoriteBookDao.getFavoriteBook(bookId)
-//
+
+        return openLibraryDataSource.getBookDetails(bookId).map { it.description }
 //        return if(localResult == null) {
-//            remoteBookDataSource
+//            openLibraryDataSource
 //                .getBookDetails(bookId)
 //                .map { it.description }
 //        } else {
 //            Result.Success(localResult.description)
 //        }
-//    }
-//
+    }
+
 //    override fun getFavoriteBooks(): Flow<List<Book>> {
 //        return favoriteBookDao
 //            .getFavoriteBooks()

@@ -58,6 +58,32 @@ fun BookListItem(
         mutableStateOf<Result<Painter>?>(null)
     }
 
+    val painter = rememberAsyncImagePainter(
+        model = book.imageUrl,
+        onSuccess = {
+            imageLoadResult =
+                if (it.painter.intrinsicSize.width > 1 && it.painter.intrinsicSize.height > 1) {
+                    Result.success(it.painter)
+                } else {
+                    Result.failure(Exception("Invalid image size"))
+                }
+        },
+        onError = {
+            it.result.throwable.printStackTrace()
+            imageLoadResult = Result.failure(it.result.throwable)
+        }
+    )
+
+    val painterState by painter.state.collectAsStateWithLifecycle()
+    val transition by animateFloatAsState(
+        targetValue = if(painterState is AsyncImagePainter.State.Success) {
+            1f
+        } else {
+            0f
+        },
+        animationSpec = tween(durationMillis = 800)
+    )
+
     Surface(
         shape = RoundedCornerShape(32.dp),
         modifier = modifier
@@ -77,32 +103,6 @@ fun BookListItem(
                     .height(100.dp),
                 contentAlignment = Alignment.Center
             ) {
-                val painter = rememberAsyncImagePainter(
-                    model = book.imageUrl,
-                    onSuccess = {
-                        imageLoadResult =
-                            if (it.painter.intrinsicSize.width > 1 && it.painter.intrinsicSize.height > 1) {
-                                Result.success(it.painter)
-                            } else {
-                                Result.failure(Exception("Invalid image size"))
-                            }
-                    },
-                    onError = {
-                        it.result.throwable.printStackTrace()
-                        imageLoadResult = Result.failure(it.result.throwable)
-                    }
-                )
-
-                val painterState by painter.state.collectAsStateWithLifecycle()
-                val transition by animateFloatAsState(
-                    targetValue = if(painterState is AsyncImagePainter.State.Success) {
-                        1f
-                    } else {
-                        0f
-                    },
-                    animationSpec = tween(durationMillis = 800)
-                )
-
                 when (val result = imageLoadResult) {
                     null -> PulseAnimation(modifier = Modifier.size(60.dp))
                     else -> {

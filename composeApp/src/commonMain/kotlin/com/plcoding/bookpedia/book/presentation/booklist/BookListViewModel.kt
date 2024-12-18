@@ -1,3 +1,5 @@
+@file:OptIn(FlowPreview::class)
+
 package com.plcoding.bookpedia.book.presentation.booklist
 
 import androidx.lifecycle.ViewModel
@@ -16,6 +18,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import com.plcoding.bookpedia.core.presentation.utils.extensions.toUiText
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
@@ -27,7 +30,7 @@ class BookListViewModel(
 
     private var cachedBooks = emptyList<Book>()
     private var searchJob: Job? = null
-//    private var observeFavoriteJob: Job? = null
+    private var observeFavoriteJob: Job? = null
 
     private val _state = MutableStateFlow(BookListState())
     val state = _state.asStateFlow()
@@ -35,13 +38,25 @@ class BookListViewModel(
             if(cachedBooks.isEmpty()) {
                 observeSearchQuery()
             }
-//            observeFavoriteBooks()
+            observeFavoriteBooks()
         }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000L),
             _state.value
         )
+
+    private fun observeFavoriteBooks() {
+        observeFavoriteJob?.cancel()
+        observeFavoriteJob = bookRepository
+            .getFavoriteBooks()
+            .onEach { favoriteBooks ->
+                _state.update { it.copy(
+                    favoriteBooks = favoriteBooks
+                ) }
+            }
+            .launchIn(viewModelScope)
+    }
 
     private fun observeSearchQuery() {
         state
@@ -116,21 +131,4 @@ class BookListViewModel(
             it.copy(searchQuery = query)
         }
     }
-
-
-//    private fun observeFavoriteBooks() {
-//        observeFavoriteJob?.cancel()
-//        observeFavoriteJob = bookRepository
-//            .getFavoriteBooks()
-//            .onEach { favoriteBooks ->
-//                _state.update { it.copy(
-//                    favoriteBooks = favoriteBooks
-//                ) }
-//            }
-//            .launchIn(viewModelScope)
-//    }
-
-
-
-
 }

@@ -15,6 +15,8 @@ App that searches books from the api openlibrary
 
 ## Desktop App preview:
 
+to run app use command
+./gradlew run
 
 
 Image #1            |  Image #2             |  Image #3           

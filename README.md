@@ -21,7 +21,7 @@ to run app use command
 
 Image #1            |  Image #2             |  Image #3           
 :-------------------------:|:----------------------------:|:----------------------------:
-<img src="images/hermes_bookpedia_1.png">    |  <img src="images/hermes_bookpedia_2.png">     |  <img src="images/hermes_bookpedia_3.png"> 
+<img src="images/hermes_bookpedia_1.png">    |  <img src="images/hermes_bookpedia_3.png">     |  <img src="images/hermes_bookpedia_2.png"> 
 
 
 ## Android App preview:

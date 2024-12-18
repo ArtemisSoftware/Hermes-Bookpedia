@@ -1,14 +1,31 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
+# Hermes-Bookpedia
+Book application, where we can browse books
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+## The Brief
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+App that searches books from the api openlibrary
 
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## Architecture & Libraries
+    - MVI
+    - Ktor
+    - ROOM Database
+    - Dependency Injection - Koin
+    - Kotlin Coroutines
+
+## Desktop App preview:
+
+
+
+Image #1            |  Image #2             |  Image #3           
+:-------------------------:|:----------------------------:|:----------------------------:
+<img src="images/hermes_bookpedia_1.jpg">    |  <img src="images/hermes_bookpedia_2.jpg">     |  <img src="images/hermes_bookpedia_3.jpg"> 
+
+
+## Android App preview:
+
+
+
+Image #1            |  Image #2             |  Image #3           
+:-------------------------:|:----------------------------:|:----------------------------:
+<img src="images/hermes_bookpedia_4.jpg">    |  <img src="images/hermes_bookpedia_5.jpg">     |  <img src="images/hermes_bookpedia_6.jpg"> 

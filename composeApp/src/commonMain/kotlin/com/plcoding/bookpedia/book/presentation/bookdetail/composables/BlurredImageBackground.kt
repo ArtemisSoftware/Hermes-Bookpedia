@@ -49,6 +49,7 @@ import coil3.compose.rememberAsyncImagePainter
 import com.plcoding.bookpedia.core.presentation.DarkBlue
 import com.plcoding.bookpedia.core.presentation.DesertWhite
 import com.plcoding.bookpedia.core.presentation.SandYellow
+import com.plcoding.bookpedia.core.presentation.composables.animations.PulseAnimation
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -144,10 +145,10 @@ fun BlurredImageBackground(
                             modifier = Modifier.fillMaxSize(),
                             contentAlignment = Alignment.Center
                         ) {
-//                            PulseAnimation(
-//                                modifier = Modifier
-//                                    .size(60.dp)
-//                            )
+                            PulseAnimation(
+                                modifier = Modifier
+                                    .size(60.dp)
+                            )
                         }
                         else -> {
                             Box {
